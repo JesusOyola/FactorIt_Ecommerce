@@ -1,24 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProductsListsComponent } from './pages/productsLists/products-lists/products-lists.component';
-import { CheckOutComponent } from './pages/checkOut/check-out/check-out.component';
-import { LoginComponent } from './pages/login/login.component';
+import { PagesModule } from './pages/pages.module';
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    ProductsListsComponent,
-    CheckOutComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, PagesModule,BrowserAnimationsModule, 
+  ToastrModule.forRoot({timeOut: 2000,
+    positionClass: 'toast-bottom-right',
+    preventDuplicates: true,}),],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
