@@ -6,14 +6,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module';
 import { ToastrModule } from 'ngx-toastr';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, PagesModule,BrowserAnimationsModule, 
+  imports: [BrowserModule, AppRoutingModule, PagesModule,BrowserAnimationsModule,HttpClientModule, 
   ToastrModule.forRoot({timeOut: 2000,
     positionClass: 'toast-bottom-right',
-    preventDuplicates: true,}),],
+    preventDuplicates: true,})],
   providers: [],
   bootstrap: [AppComponent],
 })
