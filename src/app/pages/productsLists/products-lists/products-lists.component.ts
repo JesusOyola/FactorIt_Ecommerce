@@ -1,37 +1,74 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ProductAmount, Products } from 'src/app/interface/products';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-products-lists',
   templateUrl: './products-lists.component.html',
-  styleUrls: ['./products-lists.component.scss']
+  styleUrls: ['./products-lists.component.scss'],
 })
-export class ProductsListsComponent implements OnInit {
- 
-  listProducts: ProductAmount[] | undefined;
+export class ProductsListsComponent implements OnInit, OnDestroy {
+  listProducts: ProductAmount[] = [];
   urlImage: string =
     'https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_';
 
-  cartListProducts: Products[] = [];
+  cartListProducts: ProductAmount[] = [];
+  productServiceSubscription!: Subscription;
+  clicksCounter:number = 0;
 
   constructor(
     private productsService: ProductsService,
-    
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    document.querySelectorAll('[data-bs-toggle="tooltip"]');
     this.getAllProducts();
   }
 
   getAllProducts() {
-    this.productsService.getProducts().subscribe({
-      next: (data) => {
-        console.log(data);
+    this.productServiceSubscription = this.productsService
+      .getProducts()
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          this.listProducts = data;
+        },
+      });
+  }
 
-        this.listProducts = data;
-      },
-    });
+  findProductById(product: ProductAmount) {
+    const indexx = this.cartListProducts.findIndex(
+      (productFromCartList) =>
+        productFromCartList.id_producto === product.id_producto
+    );
+    if (indexx !== -1) {
+      this.cartListProducts[indexx].cantidad =
+        (this.cartListProducts[indexx].cantidad as number) + 1;
+    } else {
+      product['cantidad'] = 1;
+      this.cartListProducts.push(product);
+    }
+  }
+
+  addToCartList(product: ProductAmount) {
+    this.clicksCounter = this.clicksCounter +1; 
+    const modifiedProduct = product;
+    if (this.cartListProducts.length === 0) {
+      modifiedProduct['cantidad'] = 1;
+      this.cartListProducts.push(modifiedProduct);
+    } else {
+      this.findProductById(modifiedProduct);
+    }
+    this.cartService.setProducts(this.cartListProducts);
+    this.cartService.setItemsIntoCart(this.clicksCounter)
+    //console.log(this.cartListProducts)
+   
+  }
+
+  ngOnDestroy(): void {
+    this.productServiceSubscription.unsubscribe();
   }
 }
