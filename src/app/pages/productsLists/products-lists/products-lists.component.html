@@ -11,7 +11,7 @@
             
           <h5 class="card-title" data-toggle="tooltip" title={{product.nombre}} >{{ product.nombre | titleTransform }} </h5>
           <p class="card-text">{{ product.precio | currency : "ARS " : "symbol" : "1.0-0" }}</p>
-          <a href="#" class="btn btn-primary">Add To Cart</a>
+          <button class="btn btn-primary" (click)="addToCartList(product)">Add To Cart</button>
         </div>
       </div>
     </article>

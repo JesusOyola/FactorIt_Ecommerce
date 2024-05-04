@@ -1,1 +1,17 @@
-<p>check-out works!</p>
+<section class="w-100">
+    <app-navbar></app-navbar>
+    <article class="products-container container">
+    <div class="card" *ngFor="
+    let product of cartListProducts;
+    let i = index
+  ">
+        <img src="{{ urlImage }}{{ product.imagenes[0].nombre }}-med.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+            
+          <h5 class="card-title" data-toggle="tooltip" title={{product.nombre}} >{{ product.nombre | titleTransform }} </h5>
+          <p class="card-text">{{ product.precio | currency : "ARS " : "symbol" : "1.0-0" }}</p>
+          <!-- <a href="#" class="btn btn-primary">Add To Cart</a> -->
+        </div>
+      </div>
+    </article>
+</section> 
