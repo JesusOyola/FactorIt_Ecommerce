@@ -17,6 +17,7 @@ export class ProductsListsComponent implements OnInit, OnDestroy {
   cartListProducts: ProductAmount[] = [];
   productServiceSubscription!: Subscription;
   clicksCounter:number = 0;
+  
 
   constructor(
     private productsService: ProductsService,
@@ -26,6 +27,7 @@ export class ProductsListsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     document.querySelectorAll('[data-bs-toggle="tooltip"]');
     this.getAllProducts();
+    /* this.getCartCounter() */
   }
 
   getAllProducts() {
@@ -39,6 +41,13 @@ export class ProductsListsComponent implements OnInit, OnDestroy {
       });
   }
 
+  /* getCartCounter() {
+    this.cartService.getItemsIntoCart().subscribe({
+      next: (data) => {
+        this.clicksCounter = data;
+      },
+    });
+  } */
   findProductById(product: ProductAmount) {
     const indexx = this.cartListProducts.findIndex(
       (productFromCartList) =>

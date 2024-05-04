@@ -9,9 +9,22 @@
         <div class="card-body">
             
           <h5 class="card-title" data-toggle="tooltip" title={{product.nombre}} >{{ product.nombre | titleTransform }} </h5>
-          <p class="card-text">{{ product.precio | currency : "ARS " : "symbol" : "1.0-0" }}</p>
+          <div class="unit-container">
+          <p class="card-unit"> Unidades: {{ product.cantidad}}</p>
+          <i class="bi bi-plus-circle unit-icon" (click)="addItem(i)"></i>
+          <i class="bi bi-dash-circle unit-icon" (click)="removeItem(i)"></i>
+        </div>
+          <p class="card-price">{{ product.precio | currency : "ARS " : "symbol" : "1.0-0" }}</p>
           <!-- <a href="#" class="btn btn-primary">Add To Cart</a> -->
         </div>
       </div>
     </article>
+
+    <div class="total-card">
+      <div class="card-body">
+        <h3 class="card-title">Total a Pagar {{totalAPagar}} </h3>
+        <p class="card-text">Gracias por su compra</p>
+        <!-- <a href="#" class="btn btn-primary">Button</a> -->
+      </div>
+    </div>
 </section> 
