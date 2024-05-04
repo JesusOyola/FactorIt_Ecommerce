@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { map, Subscription } from 'rxjs';
 import { ProductAmount } from 'src/app/interface/products';
 import { CartService } from 'src/app/services/cart.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-check-out',
@@ -16,8 +17,12 @@ export class CheckOutComponent implements OnInit {
   cartServiceSubscription!: Subscription;
   cartCounter!: number;
   totalAPagar!: number;
+  userData: any;
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private loginService: LoginService
+  ) {}
 
   ngOnInit(): void {
     this.cartService
@@ -38,6 +43,7 @@ export class CheckOutComponent implements OnInit {
       });
     this.getCartCounter();
     this.getTotalAmount();
+    this.getCartType();
   }
 
   getCartCounter() {
@@ -46,6 +52,20 @@ export class CheckOutComponent implements OnInit {
         this.cartCounter = data;
       },
     });
+  }
+
+  getCartType() {
+    let userEmail: string = '';
+    this.loginService.getUser().subscribe({
+      next: (data) => {
+        userEmail = data;
+      },
+    });
+    const userType = localStorage.getItem(userEmail);
+    if (userType !== null) {
+      this.userData = JSON.parse(userType);
+      console.log(this.userData);
+    }
   }
 
   addItem(index: number) {
@@ -96,4 +116,36 @@ export class CheckOutComponent implements OnInit {
     });
     this.totalAPagar = total;
   }
+
+  buyProducts(){
+    if(this.userData.cartType === "common" && this.cartCounter === 4){
+      this.totalAPagar = this.totalAPagar - ((this.totalAPagar * 25) / 100);
+      console.log("Tuviste 25% de descuento")
+      console.log(this.totalAPagar)
+    }else if(this.userData.cartType === "common" && this.cartCounter > 10){
+      this.totalAPagar = this.totalAPagar - 100;
+      console.log("Tuviste 100 pesos de descuento")
+      console.log(this.totalAPagar)
+    }
+
+     if(this.userData.cartType === "vip" && this.cartCounter > 10){
+      const productoBarato = this.prodductoMasBarato();
+      console.log(productoBarato)
+      this.totalAPagar = (this.totalAPagar - productoBarato.precio) - 500;
+    } 
+    
+  }
+
+   prodductoMasBarato(){
+    
+    const cartListUpdated = this.cartListProducts.map(product =>({...product, precio:product.precio / (product.cantidad as number), cantidad:1}))
+    const productoMenorPrecio = cartListUpdated.reduce((menorproducto, producto)=>{
+      if(producto.precio < menorproducto.precio){
+        return producto
+      }else{
+        return menorproducto
+      }
+    })
+    return productoMenorPrecio
+  } 
 }
