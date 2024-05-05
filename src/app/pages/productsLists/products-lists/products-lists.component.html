@@ -1,19 +1,28 @@
-
 <section class="w-100">
-    <app-navbar></app-navbar>
-    <article class="products-container container">
-    <div class="card" *ngFor="
-    let product of listProducts;
-    let i = index
-  ">
-        <img src="{{ urlImage }}{{ product.imagenes[0].nombre }}-med.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-            
-          <h5 class="card-title" data-toggle="tooltip" title={{product.nombre}} >{{ product.nombre | titleTransform }} </h5>
-          <p class="card-text">{{ product.precio | currency : "ARS " : "symbol" : "1.0-0" }}</p>
-          <button class="btn btn-primary" (click)="addToCartList(product)">Add To Cart</button>
-        </div>
-      </div>
-    </article>
-</section>
+  <app-navbar></app-navbar>
 
+  <article class="products-container container">
+    <div class="card" *ngFor="let product of listProducts; let i = index">
+      <img
+        src="{{ urlImage }}{{ product.imagenes[0].nombre }}-med.jpg"
+        class="card-img-top"
+        alt="..."
+      />
+      <div class="card-body">
+        <h5
+          class="card-title"
+          data-toggle="tooltip"
+          title="{{ product.nombre }}"
+        >
+          {{ product.nombre | titleTransform }}
+        </h5>
+        <p class="card-text">
+          {{ product.precio | currency : "ARS " : "symbol" : "1.0-0" }}
+        </p>
+        <button class="btn btn-primary" (click)="addToCartList(product)">
+          Add To Cart
+        </button>
+      </div>
+    </div>
+  </article>
+</section>

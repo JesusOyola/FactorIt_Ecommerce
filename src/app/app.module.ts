@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

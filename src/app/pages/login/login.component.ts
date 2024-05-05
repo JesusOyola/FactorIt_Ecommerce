@@ -35,18 +35,30 @@ export class LoginComponent implements OnInit {
     const userData: any = {
       email: this.loginForm.get('email')?.value,
       password: this.loginForm.get('password')?.value,
-      cartType: 'vip',
+      cartType: 'common',
+      vipNextPurchase: false,
     };
     const userTransformData = JSON.stringify(userData);
-    if (!this.loginForm.invalid) {
+    const userAlreadyCreate = localStorage.getItem(
+      this.loginForm.get('email')?.value
+    );
+
+    if (!this.loginForm.invalid && userAlreadyCreate === null) {
       localStorage.setItem(
         `${this.loginForm.get('email')?.value}`,
         userTransformData
       );
-      this.loginService.setUser(this.loginForm.get('email')?.value)
+      this.loginService.setUser(this.loginForm.get('email')?.value);
       this.toastr.success(
         `User ${this.loginForm.controls['email'].value} created`,
         'User created'
+      );
+      this.router.navigate([`/${RouterPathNames.productsList}`]);
+    } else if (!this.loginForm.invalid && userAlreadyCreate !== null) {
+      this.loginService.setUser(this.loginForm.get('email')?.value);
+      this.toastr.success(
+        `User ${this.loginForm.controls['email'].value} Logged`,
+        'User Logged'
       );
       this.router.navigate([`/${RouterPathNames.productsList}`]);
     } else {

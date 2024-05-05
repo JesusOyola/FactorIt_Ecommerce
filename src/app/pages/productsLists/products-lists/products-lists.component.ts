@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { ProductAmount, Products } from 'src/app/interface/products';
+import { ProductAmount } from 'src/app/interface/products';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -10,14 +11,14 @@ import { ProductsService } from 'src/app/services/products.service';
   styleUrls: ['./products-lists.component.scss'],
 })
 export class ProductsListsComponent implements OnInit, OnDestroy {
+  
   listProducts: ProductAmount[] = [];
   urlImage: string =
     'https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_';
 
   cartListProducts: ProductAmount[] = [];
   productServiceSubscription!: Subscription;
-  clicksCounter:number = 0;
-  
+  clicksCounter: number = 0;
 
   constructor(
     private productsService: ProductsService,
@@ -63,7 +64,7 @@ export class ProductsListsComponent implements OnInit, OnDestroy {
   }
 
   addToCartList(product: ProductAmount) {
-    this.clicksCounter = this.clicksCounter +1; 
+    this.clicksCounter = this.clicksCounter + 1;
     const modifiedProduct = product;
     if (this.cartListProducts.length === 0) {
       modifiedProduct['cantidad'] = 1;
@@ -72,9 +73,8 @@ export class ProductsListsComponent implements OnInit, OnDestroy {
       this.findProductById(modifiedProduct);
     }
     this.cartService.setProducts(this.cartListProducts);
-    this.cartService.setItemsIntoCart(this.clicksCounter)
+    this.cartService.setItemsIntoCart(this.clicksCounter);
     //console.log(this.cartListProducts)
-   
   }
 
   ngOnDestroy(): void {
