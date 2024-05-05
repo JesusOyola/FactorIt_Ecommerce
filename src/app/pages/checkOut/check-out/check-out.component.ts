@@ -5,13 +5,14 @@ import { RouterPathNames } from 'src/app/enum/router-path-names';
 import { ProductAmount } from 'src/app/interface/products';
 import { CartService } from 'src/app/services/cart.service';
 import { LoginService } from 'src/app/services/login.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-check-out',
   templateUrl: './check-out.component.html',
   styleUrls: ['./check-out.component.scss'],
 })
-export class CheckOutComponent implements OnInit {
+export class CheckOutComponent implements OnInit, OnDestroy {
   cartListProducts!: ProductAmount[];
   urlImage: string =
     'https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_';
@@ -28,7 +29,7 @@ export class CheckOutComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private loginService: LoginService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -182,10 +183,10 @@ export class CheckOutComponent implements OnInit {
       console.log('nada');
     }
 
-    if (this.userData.cartType === 'vip' && this.cartCounter > 10 ) {
+    if (this.userData.cartType === 'vip' && this.cartCounter > 10) {
       const productoBarato = this.prodductoMasBarato();
       console.log(productoBarato);
-      this.totalAPagar = (this.totalAPagar - productoBarato.precio )- 500;
+      this.totalAPagar = this.totalAPagar - productoBarato.precio - 500;
       if (this.userData.vipNextPurchase === true) {
         const user = this.userData.email;
         localStorage.removeItem(user);
@@ -199,6 +200,7 @@ export class CheckOutComponent implements OnInit {
         localStorage.setItem(user, userTransformData);
       }
     }
+    this.showAlertConfirmPurchase();
   }
 
   prodductoMasBarato() {
@@ -227,9 +229,23 @@ export class CheckOutComponent implements OnInit {
     this.monthSelected = month;
   }
 
-  deleteAllCart(){
+  deleteAllCart() {
     this.cartListProducts = [];
     this.cartService.setItemsIntoCart(0);
     this.router.navigate([`/${RouterPathNames.productsList}`]);
+  }
+
+  ngOnDestroy(): void {
+    this.cartListProducts = [];
+    this.cartService.setItemsIntoCart(0);
+  }
+
+  showAlertConfirmPurchase() {
+    Swal.fire({
+      icon: 'success',
+      title: 'Compra Exitosa!',
+      showConfirmButton: false,
+      timer: 3000,
+    });
   }
 }

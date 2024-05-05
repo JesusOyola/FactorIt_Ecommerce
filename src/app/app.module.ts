@@ -8,6 +8,7 @@ import { PagesModule } from './pages/pages.module';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
+    SweetAlert2Module.forRoot(),
     NgbModule,
   ],
   providers: [],
