@@ -5,8 +5,9 @@ import { ProductsListsComponent } from './productsLists/products-lists/products-
 import { CheckOutComponent } from './checkOut/check-out/check-out.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../shared/shared.module';
 import { TitleTransformPipe } from '../pipes/title-transform.pipe';
+import { SharedModule } from '../shared/shared.module';
+
 
 @NgModule({
   declarations: [LoginComponent, ProductsListsComponent, CheckOutComponent,TitleTransformPipe],

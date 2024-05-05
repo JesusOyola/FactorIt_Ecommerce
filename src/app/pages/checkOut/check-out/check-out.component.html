@@ -1,5 +1,5 @@
 <section class="w-100">
-    <app-navbar></app-navbar>
+    <app-navbar (emitFullDate)="onSelectedDate($event)" (emitMonth)="onSelectedMonth($event)"></app-navbar>
     <article class="products-container container">
     <div class="card" *ngFor="
     let product of cartListProducts;
@@ -15,16 +15,21 @@
           <i class="bi bi-dash-circle unit-icon" (click)="removeItem(i)"></i>
         </div>
           <p class="card-price">{{ product.precio | currency : "ARS " : "symbol" : "1.0-0" }}</p>
-          <!-- <a href="#" class="btn btn-primary">Add To Cart</a> -->
+          
         </div>
       </div>
     </article>
 
     <div class="total-card">
-      <div class="card-body">
-        <h3 class="card-title">Total a Pagar {{totalAPagar}} </h3>
+
+      <div class="card-body ">
+        <div class="w-50">
+        <h3 class="card-title">Total a Pagar {{totalAPagar | currency : "ARS " : "symbol" : "1.0-0"}} </h3>
         <p class="card-text">Gracias por su compra</p>
-        <!-- <a href="#" class="btn btn-primary">Button</a> -->
+      </div>
+      <div class="w-50">
+        <button type="button" class="btn btn-success" (click)="buyProducts()">Comprar</button>
+      </div>
       </div>
     </div>
 </section> 

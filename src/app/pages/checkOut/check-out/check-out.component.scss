@@ -38,6 +38,12 @@ img {
   width: 100%;
   height: 100px;
   background-color: whitesmoke;
+  justify-content: space-between;
+}
+.card-body{
+  display: flex;
+  text-align: center;
+  align-items: center;
 }
 
 .unit-container{
