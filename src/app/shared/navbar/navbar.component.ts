@@ -34,6 +34,9 @@ export class NavbarComponent implements OnInit, AfterContentChecked {
   goToCart() {
     this.router.navigate([`/${RouterPathNames.checkout}`]);
   }
+  goToProducstList() {
+    this.router.navigate([`/${RouterPathNames.productsList}`]);
+  }
 
   ngAfterContentChecked(): void {
     this.cartService.getItemsIntoCart().subscribe({

@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { map, Subscription } from 'rxjs';
+import { RouterPathNames } from 'src/app/enum/router-path-names';
 import { ProductAmount } from 'src/app/interface/products';
 import { CartService } from 'src/app/services/cart.service';
 import { LoginService } from 'src/app/services/login.service';
@@ -25,7 +27,8 @@ export class CheckOutComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -70,6 +73,9 @@ export class CheckOutComponent implements OnInit {
       this.userData = JSON.parse(userType);
       console.log(this.userData);
     }
+  }
+  goToProducstList() {
+    this.router.navigate([`/${RouterPathNames.productsList}`]);
   }
 
   addItem(index: number) {
@@ -219,5 +225,11 @@ export class CheckOutComponent implements OnInit {
 
   onSelectedMonth(month: number) {
     this.monthSelected = month;
+  }
+
+  deleteAllCart(){
+    this.cartListProducts = [];
+    this.cartService.setItemsIntoCart(0);
+    this.router.navigate([`/${RouterPathNames.productsList}`]);
   }
 }

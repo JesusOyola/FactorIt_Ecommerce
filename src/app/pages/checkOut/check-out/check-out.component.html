@@ -1,35 +1,71 @@
 <section class="w-100">
-    <app-navbar (emitFullDate)="onSelectedDate($event)" (emitMonth)="onSelectedMonth($event)"></app-navbar>
+  <app-navbar
+    (emitFullDate)="onSelectedDate($event)"
+    (emitMonth)="onSelectedMonth($event)"
+  ></app-navbar>
+  <main *ngIf="cartListProducts.length > 0">
     <article class="products-container container">
-    <div class="card" *ngFor="
-    let product of cartListProducts;
-    let i = index
-  ">
-        <img src="{{ urlImage }}{{ product.imagenes[0].nombre }}-med.jpg" class="card-img-top" alt="...">
+      <div class="card" *ngFor="let product of cartListProducts; let i = index">
+        <img
+          src="{{ urlImage }}{{ product.imagenes[0].nombre }}-med.jpg"
+          class="card-img-top"
+          alt="..."
+        />
         <div class="card-body">
-            
-          <h5 class="card-title" data-toggle="tooltip" title={{product.nombre}} >{{ product.nombre | titleTransform }} </h5>
+          <h5
+            class="card-title"
+            data-toggle="tooltip"
+            title="{{ product.nombre }}"
+          >
+            {{ product.nombre | titleTransform }}
+          </h5>
           <div class="unit-container">
-          <p class="card-unit"> Unidades: {{ product.cantidad}}</p>
-          <i class="bi bi-plus-circle unit-icon" (click)="addItem(i)"></i>
-          <i class="bi bi-dash-circle unit-icon" (click)="removeItem(i)"></i>
-        </div>
-          <p class="card-price">{{ product.precio | currency : "ARS " : "symbol" : "1.0-0" }}</p>
-          
+            <p class="card-unit">Unidades: {{ product.cantidad }}</p>
+            <i class="bi bi-plus-circle unit-icon" (click)="addItem(i)"></i>
+            <i class="bi bi-dash-circle unit-icon" (click)="removeItem(i)"></i>
+          </div>
+          <p class="card-price">
+            {{ product.precio | currency : "ARS " : "symbol" : "1.0-0" }}
+          </p>
         </div>
       </div>
     </article>
 
-    <div class="total-card">
+    <article
+      class="total-card"
+      [ngClass]="{
+        'position-absolute': cartListProducts.length < 4,
+        'position-relative': cartListProducts.length > 3
+      }"
+    >
+      <div class="card-body d-flex">
+        <article class="w-50">
+          <h3 class="card-title">
+            Total a Pagar
+            {{ totalAPagar | currency : "ARS " : "symbol" : "1.0-0" }}
+          </h3>
+          <p class="card-text">Gracias por su compra</p>
+        </article>
+        <article class="w-50 action-buttons">
+          <button type="button" class="btn btn-success" (click)="buyProducts()">
+            Buy Products
+          </button>
+          <button type="button" class="btn btn-danger" (click)="deleteAllCart()">
+            Delete Cart
+          </button>
+        </article>
+      </div>
+    </article>
+  </main>
 
-      <div class="card-body ">
-        <div class="w-50">
-        <h3 class="card-title">Total a Pagar {{totalAPagar | currency : "ARS " : "symbol" : "1.0-0"}} </h3>
-        <p class="card-text">Gracias por su compra</p>
-      </div>
-      <div class="w-50">
-        <button type="button" class="btn btn-success" (click)="buyProducts()">Comprar</button>
-      </div>
-      </div>
-    </div>
-</section> 
+  <div class="empty-message" *ngIf="cartListProducts.length === 0">
+    <h1>The cart is empt, please back to Products List and Add Products!</h1>
+    <button
+      type="button"
+      class="btn btn-warning mt-5"
+      (click)="goToProducstList()"
+    >
+      Keep Buying
+    </button>
+  </div>
+</section>
