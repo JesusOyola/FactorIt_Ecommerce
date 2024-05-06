@@ -34,7 +34,6 @@ export class ProductsListsComponent implements OnInit, OnDestroy {
       .getProducts()
       .subscribe({
         next: (data) => {
-          console.log(data);
           this.listProducts = data;
         },
       });

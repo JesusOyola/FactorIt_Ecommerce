@@ -7,21 +7,19 @@ import { LoginService } from 'src/app/services/login.service';
 @Component({
   selector: 'app-my-shopping',
   templateUrl: './my-shopping.component.html',
-  styleUrls: ['./my-shopping.component.scss']
+  styleUrls: ['./my-shopping.component.scss'],
 })
 export class MyShoppingComponent implements OnInit {
   loginServiceSubscription!: Subscription;
   userData: any;
   urlImage: string =
     'https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_';
-  myShopping:any[] = []
+  myShopping: any[] = [];
 
-  constructor(private loginService: LoginService, private router: Router){
-
-  }
+  constructor(private loginService: LoginService, private router: Router) {}
   ngOnInit(): void {
     this.getCartType();
-    this.recorrer()
+    this.reaorderProducts();
   }
 
   getCartType() {
@@ -34,20 +32,15 @@ export class MyShoppingComponent implements OnInit {
     const userType = localStorage.getItem(userEmail);
     if (userType !== null) {
       this.userData = JSON.parse(userType);
-      console.log(this.userData);
     }
-    
   }
-  recorrer(){
+  reaorderProducts() {
     this.userData?.myShoppings.forEach((subArray: any[], index: number) => {
-      console.log(`Subarray ${index + 1}:`);
-      
-      subArray.forEach(elemento => {
-          console.log(elemento);
-          this.myShopping.push(elemento)
+      subArray.forEach((elemento) => {
+        console.log(elemento);
+        this.myShopping.push(elemento);
       });
-      console.log("compras", this.myShopping)
-  });
+    });
   }
   goToProducstList() {
     this.router.navigate([`/${RouterPathNames.productsList}`]);
