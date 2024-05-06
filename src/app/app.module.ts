@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

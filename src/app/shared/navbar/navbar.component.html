@@ -24,12 +24,17 @@
       </form>
     </div>
     <!-- end Calendar -->
+
     <div class="container-fluid title-container">
       <a class="navbar-brand" (click)="goToProducstList()"
         >FACTOR IT ECOMMERCE</a
       >
     </div>
-    <div class="me-5" (click)="goToCart()">
+    <div class="me-5 nav-buttons" (click)="goToCart()">
+      <button type="button" class="btn btn-primary" (click)="goToMyShoppings()">Shoppings</button>
+      <button type="button" class="btn btn-secondary" (click)="logOut()">
+        LogOut
+      </button>
       <i
         class="bi bi-cart4 position-relative"
         style="font-size: 2rem; color: black"

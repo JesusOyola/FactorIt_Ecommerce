@@ -4,6 +4,7 @@ import { RouterPathNames } from '../enum/router-path-names';
 import { CheckOutComponent } from './checkOut/check-out/check-out.component';
 import { LoginComponent } from './login/login.component';
 import { ProductsListsComponent } from './productsLists/products-lists/products-lists.component';
+import { MyShoppingComponent } from './myShopping/my-shopping/my-shopping.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: RouterPathNames.checkout,
     component: CheckOutComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: RouterPathNames.myshopping,
+    component: MyShoppingComponent,
     pathMatch: 'full',
   },
   {
