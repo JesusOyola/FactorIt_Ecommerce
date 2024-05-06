@@ -24,5 +24,3 @@ En el navbar tenermos el nombre de la tienda, el cual nos dirige hacia la lista 
 - La elección de si un carrito es VIP o COMUN esta determinado por el usuario, es decir el usuario tiene la propiedad de comun o vip.
 - Agregué un punto extra que me pareció interesante, todos los usuarios cuando se loguean por primera vez son comunes, es decir que van a tener los descuentos de un carrito comun, ademas se aplican los beneficios y descuentos como indicaron en el challenge. Lo que agregué extra es que un usuario comun puede para a ser VIP si al comprar menos de 4 productos gasta 1000000 pesos.
 - Si se recarga la pagina se pierden algunos datos, por este motivo es recomendable que en el caso que suceda se desloguearse y volver a ingresar.
-
-
