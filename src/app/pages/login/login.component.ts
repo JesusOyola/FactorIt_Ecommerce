@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RouterPathNames } from 'src/app/enum/router-path-names';
+import { User } from 'src/app/interface/user';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    const userData: any = {
+    const userData: User = {
       email: this.loginForm.get('email')?.value,
       password: this.loginForm.get('password')?.value,
       cartType: 'common',
