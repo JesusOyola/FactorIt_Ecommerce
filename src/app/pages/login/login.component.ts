@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.get('password')?.value,
       cartType: 'common',
       vipNextPurchase: false,
+       myShoppings:[], 
     };
     const userTransformData = JSON.stringify(userData);
     const userAlreadyCreate = localStorage.getItem(

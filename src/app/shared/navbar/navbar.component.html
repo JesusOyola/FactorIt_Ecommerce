@@ -1,8 +1,8 @@
 <div class="navbar-container">
   <nav class="navbar navbar-expand-lg">
     <!-- start Calendar -->
-    <div class="calendar-container" *ngIf="isInChekOutPage">
-      <form class="row row-cols-sm-auto" >
+    <div class="calendar-container ms-3" *ngIf="isInChekOutPage">
+      <form class="row row-cols-sm-auto">
         <div class="col-12">
           <div class="input-group">
             <input
@@ -22,15 +22,19 @@
           </div>
         </div>
       </form>
-
-      <hr />
-      <pre>Model: {{ model | json }}</pre>
     </div>
     <!-- end Calendar -->
+
     <div class="container-fluid title-container">
-      <a class="navbar-brand" href="#">FACTOR IT ECOMMERCE</a>
+      <a class="navbar-brand" (click)="goToProducstList()"
+        >FACTOR IT ECOMMERCE</a
+      >
     </div>
-    <div class="me-5" (click)="goToCart()">
+    <div class="me-5 nav-buttons" (click)="goToCart()">
+      <button type="button" class="btn btn-primary" (click)="goToMyShoppings()">Shoppings</button>
+      <button type="button" class="btn btn-secondary" (click)="logOut()">
+        LogOut
+      </button>
       <i
         class="bi bi-cart4 position-relative"
         style="font-size: 2rem; color: black"

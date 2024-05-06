@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
 import { RouterPathNames } from 'src/app/enum/router-path-names';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -22,17 +21,17 @@ export class NavbarComponent implements OnInit, AfterContentChecked {
   model!: NgbDateStruct;
   cartItemsAmount: number = 0;
   isInChekOutPage: boolean = false;
-  constructor(
-    private toastr: ToastrService,
-    private router: Router,
-    private cartService: CartService
-  ) {}
+  constructor(private router: Router, private cartService: CartService) {}
+
   ngOnInit(): void {
     this.showNavbar();
   }
 
   goToCart() {
     this.router.navigate([`/${RouterPathNames.checkout}`]);
+  }
+  goToProducstList() {
+    this.router.navigate([`/${RouterPathNames.productsList}`]);
   }
 
   ngAfterContentChecked(): void {
@@ -50,7 +49,14 @@ export class NavbarComponent implements OnInit, AfterContentChecked {
     if (this.model !== null) {
       const stringDate = `${this.model.day}/${this.model.month}/${this.model.year}`;
       this.emitFullDate.emit(stringDate);
-     this.emitMonth.emit(this.model.month)
+      this.emitMonth.emit(this.model.month);
     }
+  }
+  logOut() {
+    this.router.navigate([`/${RouterPathNames.login}`]);
+  }
+
+  goToMyShoppings(){
+    this.router.navigate([`/${RouterPathNames.myshopping}`]);
   }
 }

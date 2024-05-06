@@ -7,10 +7,11 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TitleTransformPipe } from '../pipes/title-transform.pipe';
 import { SharedModule } from '../shared/shared.module';
+import { MyShoppingComponent } from './myShopping/my-shopping/my-shopping.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, ProductsListsComponent, CheckOutComponent,TitleTransformPipe],
+  declarations: [LoginComponent, ProductsListsComponent, CheckOutComponent,TitleTransformPipe,MyShoppingComponent],
   imports: [CommonModule,PagesRoutingModule,ReactiveFormsModule,SharedModule,],
 })
 export class PagesModule {}
